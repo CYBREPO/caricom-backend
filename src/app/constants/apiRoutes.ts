@@ -1,43 +1,3 @@
-class brand{
-    //brand
-    public static getBrandById = "brand/getBrandById";
-    public static getAllBrands = "brand/getAllBrands";
-    public static getAllModels = "brand/getAllModels";
-    public static setBrands = "brand/setBrands";
-    public static updateBrand = "brand/updateBrand";
-    public static deleteBrand = "brand/deleteBrand";
-    //model
-    public static setModels = "brand/setModels";
-    public static saveModel = "brand/saveModel";
-    public static updateModel = "brand/updateModel";
-    public static deleteModel = "brand/deleteModel";
-
-}
-
-class vehicle{
-    public static getVehicle = "vehicle/getVehicle";
-    public static setVehicleDetails = "vehicle/setVehicleDetails";
-    public static getFilteredVehicleDetails = "vehicle/getFilteredVehicleDetails";
-    public static getAdditionDetails = "vehicle/getAdditionDetails";
-    public static getVehicles = "vehicle/getVehicles";
-    public static deleteVehicle = "vehicle/deleteVehicle";
-    public static updateVehicleDetails = "vehicle/updateVehicleDetails";
-    public static geAllQuotationRequests = "vehicle/geAllQuotationRequests";
-}
-class location{
-    public static getLocationVechile = "location/getLocationVechile";
-
-}
-class mail{
-    public static sendMail = "email/sendemail";
-
-}
-class host{
-    public static createHost = "host/createHost";
-    public static getAllHost = "host/getAllHost";
-    public static updateHostStatus = "host/updateHostStatus";
-
-}
 class account{
     public static login = "account/login";
     public static register = "account/register";
@@ -69,22 +29,12 @@ class pages{
     public static updateHome = "pages/updateHome";
 
 }
-class teams{
-    public static saveTeams = "teams/saveTeams";
-    public static updateTeams = "teams/updateTeams";
-    public static getTeams = "teams/getTeams";
-    public static deleteTeamMember = "teams/deleteTeamMember";
-    public static addUpdateTeamMember = "teams/addUpdateTeamMember";
-
+class banner {
+    public static savebanner = "banner/saveBanner"
 }
 
 export class ApiUrls{
-    public static brand = brand;
-    public static vehicle = vehicle;
-    public static location = location;
-    public static mail = mail;
-    public static host = host;
+    public static banner = banner;
     public static account = account;
     public static pages = pages;
-    public static teams = teams;
 }

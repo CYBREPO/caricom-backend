@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiUrls } from 'src/app/constants/apiRoutes';
 import { HttpService } from 'src/app/service/http.service';
 
 @Component({
@@ -73,9 +74,11 @@ export class HomeBannerComponent implements OnInit {
     if(this.sidebarArray){
       for (let i = 0; i < this.sidebarArray.length; i++) {
         const fb = (this.sidebarArray[i] as FormGroup).controls;
-        // formData.append(`bannerContent[${i}][title]`, fb['title'].value);
-        // formData.append(`features[${i}][description]`, fb['description'].value);
+        formData.append(`banner[${i}][content]`, fb['title'].value);
+        formData.append(`banner[${i}][image]`, fb['description'].value);
       }
     }
+
+    this.httpService.httpPost(ApiUrls.banner.savebanner,formData).subscribe(res => {});
   }
 }
