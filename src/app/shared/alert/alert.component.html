@@ -1,0 +1,52 @@
+<span #messageDiv></span>
+<div *ngIf="isError" 
+    class="ui-pnotify alert alert-styled-left bg-danger ui-pnotify-fade-normal ui-pnotify-mobile-able ui-pnotify-in ui-pnotify-fade-in ui-pnotify-move"
+    aria-live="assertive" aria-role="alertdialog"
+    style="display: none; width: 300px; top: 50px; right: 20px; cursor: auto; z-index: 9999;">
+    <div class="brighttheme ui-pnotify-container brighttheme-notice ui-pnotify-shadow" role="alert"
+        style="min-height: 16px;">
+        <div class="ui-pnotify-closer" aria-role="button" tabindex="0" title="Close" style="cursor: pointer;"
+            (click)="isError = false;">
+            <span class="brighttheme-icon-closer"></span>
+        </div>
+        <div class="ui-pnotify-sticker" aria-role="button" aria-pressed="false" tabindex="0" title="Stick"
+            style="cursor: pointer; visibility: hidden;">
+            <span class="brighttheme-icon-sticker" aria-pressed="false">&times;</span>
+        </div>
+        <div class="ui-pnotify-icon">
+            <span class="brighttheme-icon-notice"></span>
+        </div>
+        <h4 class="ui-pnotify-title">Error</h4>
+        <div class="ui-pnotify-text" aria-role="alert">
+            <p [innerHtml]="errorMessage"></p>
+        </div>
+        <div class="ui-pnotify-action-bar" style="margin-top: 5px; clear: both; text-align: right; display: none;">
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isSuccess"
+    class="ui-pnotify alert alert-styled-left bg-success ui-pnotify-fade-normal ui-pnotify-mobile-able ui-pnotify-in ui-pnotify-fade-in ui-pnotify-move"
+    aria-live="assertive" aria-role="alertdialog"
+    style="display: none; width: 300px; top: 50px; right: 20px; cursor: auto; z-index: 9999;">
+    <div class="brighttheme ui-pnotify-container brighttheme-notice ui-pnotify-shadow" role="alert"
+        style="min-height: 16px;">
+        <div class="ui-pnotify-closer" aria-role="button" tabindex="0" title="Close" style="cursor: pointer;"
+            (click)="isSuccess = false;">
+            <span class="brighttheme-icon-closer"></span>
+        </div>
+        <div class="ui-pnotify-sticker" aria-role="button" aria-pressed="false" tabindex="0" title="Stick"
+            style="cursor: pointer; visibility: hidden;">
+            <span class="brighttheme-icon-sticker" aria-pressed="false">&times;</span>
+        </div>
+        <div class="ui-pnotify-icon">
+            <span class="brighttheme-icon-notice"></span>
+        </div>
+        <h4 class="ui-pnotify-title">Success</h4>
+        <div class="ui-pnotify-text" aria-role="alert">
+            <p>{{successMessage}}</p>
+        </div>
+        <div class="ui-pnotify-action-bar" style="margin-top: 5px; clear: both; text-align: right; display: none;">
+        </div>
+    </div>
+</div>

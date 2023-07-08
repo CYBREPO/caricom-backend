@@ -1,0 +1,33 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <!-- <mat-icon>more_vert</mat-icon> -->ADD
+</button>
+<mat-menu #menu="matMenu">
+    <mat-form-field class="example-full-width" (click)="$event.stopPropagation()">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="search" [(ngModel)]="search">
+    </mat-form-field>
+
+    <div class="row" *ngFor="let item of elementsArray">
+        <div class="col-md-3" mat-menu-item (click)="selectedElment(item.title)">
+            <button type="button" id="id-rds9oj-2" tabindex="0"
+                class="components-button block-editor-block-types-list__item editor-block-list-item-paragraph"><span
+                    class="block-editor-block-types-list__item-icon"><span
+                        class="block-editor-block-icon has-colors"><svg xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+                            <path [attr.d]="item.svgPath">
+                            </path>
+                        </svg></span></span><span class="block-editor-block-types-list__item-title"><span
+                        data-wp-c16t="true" data-wp-component="Truncate"
+                        class="components-truncate ed-cc-cae-ae-efebd-1udlm7h e19lxcc00">{{item.title}}</span></span>
+            </button>
+        </div>
+    </div>
+</mat-menu>
+
+<form [formGroup]="componentForm">
+    <ng-container>
+        
+    </ng-container>
+    <input type="text" formControlName="">
+    
+</form>

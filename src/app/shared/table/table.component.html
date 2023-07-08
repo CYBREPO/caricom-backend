@@ -1,0 +1,80 @@
+<table class="table table-bordered table-striped table-hover table-rowselect" id="List">
+    <thead>
+        <tr>
+            <th width="24px">Sr</th>
+            <ng-container *ngFor="let col of columns">
+                <th>{{col.title}}
+                    <span class="hide" *ngIf="col.sort??false"><i class="fa fa-arrow-up fa-1" style="cursor: pointer;"
+                            (click)="sort('acs',col.dataField)"></i></span>
+                    <span class="hide" *ngIf="col.sort??false"><i class="fa fa-arrow-down fa-1" style="cursor: pointer;"
+                            (click)="sort('desc',col.dataField)"></i></span>
+                </th>
+            </ng-container>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of dataSource; let i = index">
+            <td>{{((pageIndex - 1) * pageSize) + i + 1}}</td>
+            <ng-container *ngFor="let col of columns">
+                <td [ngClass]="col.type == GridColumnType.ACTION ? 'd-flex' :''">
+                    <ng-container *ngIf="col.type == GridColumnType.DATA">
+                        <span
+                            *ngIf="col.dataType == GridColumnDataType.DATE || col.dataType == GridColumnDataType.DATETIME;">
+                            {{item[col.dataField] | date : 'yyyy-MM-dd HH:mm' }}
+                        </span>
+                        <span *ngIf="col.dataType == undefined || col.dataType == GridColumnDataType.TEXT"
+                            title="{{item[col.dataField]}}">
+                            {{item[col.dataField]}}
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="col.type == GridColumnType.EDITOR">
+                        <ckeditor [editor]="Editor" [data]="item[col.dataField]" [disabled]="true"></ckeditor>
+                    </ng-container>
+                    <ng-container *ngIf="col.type == GridColumnType.ACTION">
+                        <ng-container *ngFor="let action of col.actions">
+                            <ng-container *ngIf="action.type == GridActionType.ICON; else buttonTemplate">
+                                <a *ngIf="action.conditionalDisplay != undefined && item[action.conditionalDisplay.dataField] == action.conditionalDisplay.value; else defaultIcon"
+                                    href="javascript:void(0)" [ngClass]="{'item-focus':(col.actions?.length??0) == 1}"
+                                    (click)="gridEvent(item, action.event, i); $event.stopPropagation();"
+                                    class="dropdown-item">
+                                    <i title="{{action.title}}" [ngClass]="action.class">
+                                    </i>
+                                    {{item[action.conditionalDisplay.dataField] == action.conditionalDisplay.value
+                                    &&
+                                    (col.actions?.length??0) > 1 ? action.title : ''}}
+                                </a>
+                                <ng-template #defaultIcon>
+                                    <a *ngIf="action.conditionalDisplay == undefined" href="javascript:void(0)"
+                                        [ngClass]="{'item-focus':(col.actions?.length??0) == 1}" class="dropdown-item"
+                                        (click)="gridEvent(item, action.event, i); $event.stopPropagation();">
+                                        <i title="{{action.title}}" [ngClass]="action.class">
+                                        </i>
+                                        {{(col.actions?.length??0) > 1 ? action.title : ''}}
+                                    </a>
+                                </ng-template>
+                            </ng-container>
+                            <ng-template #buttonTemplate>
+                                <button *ngIf="action.conditionalDisplay != undefined; else defaultButton"
+                                    mat-raised-button type="button" [ngClass]="action.class" title="{{action.title}}"
+                                    (click)="gridEvent(item, action.event, i); $event.stopPropagation();">
+                                    {{(col.actions?.length??0) >= 1 ? action.title : ''}}
+                                </button>
+                            </ng-template>
+                            <ng-template #defaultButton>
+                                <button mat-raised-button type="button" [ngClass]="action.class"
+                                    title="{{action.title}}"
+                                    (click)="gridEvent(item, action.event, i); $event.stopPropagation();">
+                                    {{(col.actions?.length??0) >= 1 ? action.title : ''}}
+                                </button>
+                            </ng-template>
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </ng-container>
+        </tr>
+    </tbody>
+</table>
+
+<mat-paginator *ngIf="dataSource != null" [length]="totalPageCount" [pageSize]="pageSize" [pageSizeOptions]='pageOption'
+    (page)="paginationEvent($event)">
+</mat-paginator>

@@ -1,0 +1,19 @@
+<div tabindex="-1">
+    <div class="modal-content p-5">
+        <div class="modal-header mb-3">
+            <h3 class="modal-title">{{data.title}}</h3>
+            <button type="button" class="close border-0" (click)="onClick('NO')" ><i class="fa fa-times"></i></button> 
+        </div>
+        <div class="modal-body mb-4">
+            <p [innerHTML]="data.message"></p>
+        </div>
+        <div class="modal-footer">
+            <ng-container *ngFor="let btn of data.buttons">
+                <button type="button" class="btn btn-success ms-3" [ngClass]="btn.class"
+                    (click)="onClick(btn.result)">
+                    {{btn.title}}
+                </button>
+            </ng-container>
+        </div>
+    </div>
+</div>
