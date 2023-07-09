@@ -1,95 +1,111 @@
 <div class="p-3">
-    <h6>Home</h6>
     <div class="container">
-        <div class="border border-1 p-4">
-            <form [formGroup]="homeForm" (ngSubmit)="submit()" class="w-100">
-                <ng-container formArrayName="siderBanner">
-                    <ng-container *ngIf="(sidebarArray?.length??0) > 0">
-                        <ng-container *ngFor="let array of sidebarArray; let i = index; let last = last;">
-                            <div class="row" [formGroupName]="i">
-                                <div class="col-md-4" *ngIf="sidebarArray[i]?.get('bannerImagePath')?.value != ''">
-                                    <div class="wp-content">
-                                        <!-- <div class="wp-head">
-                                            Banner content</div> -->
-                                        <img [src]="sidebarArray[i]?.get('bannerImagePath')?.value" alt="" height="90px"
-                                            width="160px">
-                                        <!-- <div class="mb-4 contenter">
-                                            <input type="text" formControlName="bannerImagePath">
-                                        </div> -->
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="wp-content">
-                                        <div class="wp-head">Banner Images</div>
-                                        <div class="mb-4 contenter">
-                                            <input type="file" (change)="handleFileInput($event,'',i)"
-                                                name="BannerImage" id="BannerImage">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="wp-content">
-                                        <div class="wp-head">
-                                            Banner content</div>
-                                        <div class="mb-4 contenter">
-                                            <input type="text" formControlName="bannerContent">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="d-flex">
-                                        <button *ngIf="(sidebarArray?.length??0) > 1" type="button"
-                                            class="btn btn-danger btn-sm" (click)="deleteRow(i)"
-                                            style="top: 5px;min-width: unset;" data-toggle="tooltip"
-                                            data-placement="top" title="Remove">
-                                            <i class="icon-minus fa fa-minus  text-white"
-                                                style="margin: 0 !important;"></i>
-                                        </button>
-                                        <button *ngIf="last" type="button" class="btn btn-success btn-xs AddButton"
-                                            data-toggle="tooltip" data-placement="top" title="Add"
-                                            (click)="validateAndPushDataToFormArray(i)"
-                                            style="top: 5px;min-width: unset;">
-                                            <i class="icon-plus3  text-white" style="margin: 0 !important;"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-container>
+        <h5 class="mb-4">HOME PAGE CONTENT</h5>
+
+        <form [formGroup]="homeForm" (ngSubmit)="submit()" class="w-100">
+            <ng-container formArrayName="siderBanner">
+                <ng-container *ngIf="(sidebarArray?.length??0) > 0">
+                    <ng-container *ngFor="let array of sidebarArray; let i = index; let last = last;">
+                        <div class=" border border-1 p-4">
+
+                            <h6 class="mb-3 lead"><b>MANAGE BANNER SLIDER</b></h6>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr [formGroupName]="i">
+                                        <td>
+                                            <div *ngIf="sidebarArray[i]?.get('bannerImagePath')?.value != ''">
+                                                <div class="wp-content">
+                                                    <img [src]="sidebarArray[i]?.get('bannerImagePath')?.value" alt=""
+                                                        height="90px" width="160px">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <div class="wp-content">
+                                                    <div class="wp-head mb-2">Banner Images</div>
+                                                    <div class="">
+                                                        <input type="file" (change)="handleFileInput($event,'',i)"
+                                                            name="BannerImage" id="BannerImage">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td>
+
+                                            <div class="wp-content">
+                                                <div class="wp-head mb-2">
+                                                    Banner content
+                                                </div>
+                                                <div class="">
+                                                    <input type="text" formControlName="bannerContent">
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <div class="wp-content">
+                                                    <button *ngIf="(sidebarArray?.length??0) > 1" type="button"
+                                                        class="btn btn-danger " (click)="deleteRow(i)"
+                                                        data-toggle="tooltip" data-placement="top" title="Remove">
+                                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                                        Remove
+                                                    </button>
+                                                </div>
+                                                <div class="wp-content">
+                                                    <button *ngIf="last" type="button" class="btn btn-success AddButton"
+                                                        data-toggle="tooltip" data-placement="top" title="Add"
+                                                        (click)="validateAndPushDataToFormArray(i)">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                        Add new
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </ng-container>
                 </ng-container>
+            </ng-container>
+            <div class=" border border-1 p-4 mt-5">
+                <h6 class="mb-3 lead"><b>MANAGE FULLWIDTH IMAGE SECTION (Know your carribiean)</b></h6>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="wp-content">
+                                <div class="wp-head mb-2">Main Image</div>
+                                <div class="">
+                                    <input type="file" (change)="handleFileInput($event,'mainImage')" name="Car Image"
+                                        id="file">
+                                </div>
+                            </td>
+                            <td class="wp-content" *ngIf="homeForm?.get('mainImagePath')?.value != ''">
+                                <div class="">
+                                    <img [src]="homeForm?.get('mainImagePath')?.value" alt="" height="90px"
+                                        width="160px">
+                                </div>
+                            </td>
+                            <td class="wp-content">
+                                <div class="wp-head mb-2">Main Image Content</div>
+                                <div class="">
+                                    <input type="text" formControlName="mainContent">
+                                </div>
+                            </td>
+                            <td class="wp-content">
 
+                                <button type="submit" class=" d-block btn btn-success"
+                                    style="margin-right: 10px;">submit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                <!-- <div class="wp-content">
-                    <div class="wp-head">
-                        Header content</div>
-                    <div class="mb-4 contenter">
-                        <ckeditor [editor]="Editor" formControlName="header"></ckeditor>
-                    </div>
-                </div> -->
+        </form>
 
-                <div class="wp-content">
-                    <div class="wp-head">Main Image</div>
-                    <div class="mb-4 contenter">
-                        <input type="file" (change)="handleFileInput($event,'mainImage')" name="Car Image" id="file"
-                            >
-                    </div>
-                </div>
-                <div class="wp-content" *ngIf="homeForm?.get('mainImagePath')?.value != ''">
-                    <div class="mb-4 contenter">
-                        <img [src]="homeForm?.get('mainImagePath')?.value" alt="" height="90px"
-                                            width="160px">
-                    </div>
-                </div>
-
-                <div class="wp-content">
-                    <div class="wp-head">Main Image Content</div>
-                    <div class="mb-4 contenter">
-                        <input type="text" formControlName="mainContent">
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-success" style="margin-right: 10px;">submit</button>
-            </form>
-        </div>
     </div>
 </div>
