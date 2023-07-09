@@ -1,1 +1,16 @@
+<style>
+    div.overlay {
+        opacity: 0.7;
+        background: #fff;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        position: fixed;
+    }
+</style>
+<div class="overlay" *ngIf="showLoader">
+    <mat-spinner style="position: fixed; top:50%; left: 50%;" diameter="45" color="warn"></mat-spinner>
+</div>
 <router-outlet></router-outlet>

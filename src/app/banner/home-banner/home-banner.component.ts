@@ -32,6 +32,7 @@ export class HomeBannerComponent implements OnInit {
       mainImage: ['', [Validators.required]],
       mainImagePath: [''],
       mainContent: ['', [Validators.required]],
+      id: ['']
     })
   }
 
@@ -61,7 +62,8 @@ export class HomeBannerComponent implements OnInit {
 
         this.homeForm.patchValue({
           mainImagePath: environment.url + res['data']['bannerTwoSectionImage'],
-          mainContent: res['data']['bannerTwoSectionContent']
+          mainContent: res['data']['bannerTwoSectionContent'],
+          id: res['data']['_id']
         })
       }
     })
@@ -101,6 +103,7 @@ export class HomeBannerComponent implements OnInit {
     let formData = new FormData();
 
 
+    formData.append(`id`, this.homeForm.controls['id'].value);
     formData.append(`bannerTwoSectionImage`, this.homeForm.controls['mainImage'].value);
     formData.append(`bannerTwoSectionContent`, this.homeForm.controls['mainContent'].value);
 
