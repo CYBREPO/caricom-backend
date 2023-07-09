@@ -3,14 +3,15 @@
         <h5 class="mb-4">HOME PAGE CONTENT</h5>
 
         <form [formGroup]="homeForm" (ngSubmit)="submit()" class="w-100">
-            <ng-container formArrayName="siderBanner">
-                <ng-container *ngIf="(sidebarArray?.length??0) > 0">
-                    <ng-container *ngFor="let array of sidebarArray; let i = index; let last = last;">
-                        <div class=" border border-1 p-4">
 
-                            <h6 class="mb-3 lead"><b>MANAGE BANNER SLIDER</b></h6>
-                            <table class="table table-bordered">
-                                <tbody>
+            <div class=" border border-1 p-4">
+
+                <h6 class="mb-3 lead"><b>MANAGE BANNER SLIDER</b></h6>
+                <table class="table table-bordered">
+                    <tbody>
+                        <ng-container formArrayName="siderBanner">
+                            <ng-container *ngIf="(sidebarArray?.length??0) > 0">
+                                <ng-container *ngFor="let array of sidebarArray; let i = index; let last = last;">
                                     <tr [formGroupName]="i">
                                         <td>
                                             <div *ngIf="sidebarArray[i]?.get('bannerImagePath')?.value != ''">
@@ -48,7 +49,7 @@
                                             <div class="d-flex">
                                                 <div class="wp-content">
                                                     <button *ngIf="(sidebarArray?.length??0) > 1" type="button"
-                                                        class="btn btn-danger " (click)="deleteRow(i)"
+                                                        class="btn btn-danger me-2" (click)="deleteRow(i)"
                                                         data-toggle="tooltip" data-placement="top" title="Remove">
                                                         <i class="fa fa-minus" aria-hidden="true"></i>
                                                         Remove
@@ -65,28 +66,29 @@
                                             </div>
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </ng-container>
-                </ng-container>
-            </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+
             <div class=" border border-1 p-4 mt-5">
                 <h6 class="mb-3 lead"><b>MANAGE FULLWIDTH IMAGE SECTION (Know your carribiean)</b></h6>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
+                            <td class="wp-content" *ngIf="homeForm?.get('mainImagePath')?.value != ''">
+                                <div class="">
+                                    <img [src]="homeForm?.get('mainImagePath')?.value" alt="" height="90px"
+                                        width="160px">
+                                </div>
+                            </td>
                             <td class="wp-content">
                                 <div class="wp-head mb-2">Main Image</div>
                                 <div class="">
                                     <input type="file" (change)="handleFileInput($event,'mainImage')" name="Car Image"
                                         id="file">
-                                </div>
-                            </td>
-                            <td class="wp-content" *ngIf="homeForm?.get('mainImagePath')?.value != ''">
-                                <div class="">
-                                    <img [src]="homeForm?.get('mainImagePath')?.value" alt="" height="90px"
-                                        width="160px">
                                 </div>
                             </td>
                             <td class="wp-content">
@@ -95,10 +97,18 @@
                                     <input type="text" formControlName="mainContent">
                                 </div>
                             </td>
-                            <td class="wp-content">
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
+            <div class=" border border-1 p-4 mt-5">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="wp-content">
                                 <button type="submit" class=" d-block btn btn-success"
-                                    style="margin-right: 10px;">submit</button>
+                                    style="margin-right: 10px;">Submit Data</button>
                             </td>
                         </tr>
                     </tbody>
