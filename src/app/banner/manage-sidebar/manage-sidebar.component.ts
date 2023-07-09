@@ -31,17 +31,19 @@ export class ManageSidebarComponent implements OnInit{
   ngOnInit(): void {
     this.initForm();
     this.getAllSideBar();
+    this.setColums();
   }
 
   initForm(){
     this.sidebarForm = this.fb.group({
-      name: ['',[Validators.required]]
+      name: ['',[Validators.required]],
+      id: ['']
     });
   }
 
   setColums() {
     this.columns = [
-      { title: 'Name', dataField: 'name', type: GridColumnType.DATA, dataType: GridColumnDataType.TEXT },
+      { title: 'Name', dataField: 'title', type: GridColumnType.DATA, dataType: GridColumnDataType.TEXT },
       {
         title: 'Action', dataField: '', type: GridColumnType.ACTION, actions: [
           { title: "edit", event: "edit", type: GridActionType.ICON, class: "fa fa-pencil" },
@@ -52,12 +54,12 @@ export class ManageSidebarComponent implements OnInit{
   }
 
   getAllSideBar(){
-    // this.httpService.httpGet("",null).subscribe((res: any) => {
-    //   if(res['success']){
-    //     this.data = res['data'];
-    //     this.totalCount = res['count'];
-    //   }
-    // })
+    this.httpService.httpGet(ApiUrls.banner.getAllSidebar,null).subscribe((res: any) => {
+      if(res['success']){
+        this.data = res['data'];
+        this.totalCount = res['count'];
+      }
+    })
   }
 
   paginationEventHandler(event: { pageIndex: number, pageSize: number }) {
@@ -79,7 +81,7 @@ export class ManageSidebarComponent implements OnInit{
       })
       dialogRef.subscribe(res => {
         if (res == "YES") {
-          this.httpService.httpGet("", { id: evt.data._id }).subscribe((res: any) => {
+          this.httpService.httpGet(ApiUrls.banner.deleteSidebar, { id: evt.data._id }).subscribe((res: any) => {
             if (res['success']) {
               this.getAllSideBar();
             }
@@ -90,7 +92,8 @@ export class ManageSidebarComponent implements OnInit{
     if (evt.event == 'edit') {
       this.modalBtn.nativeElement.click();
       this.sidebarForm.patchValue({
-        name: evt.data.name,
+        name: evt.data.title,
+        id: evt.data._id
       });
     }
   }
@@ -100,9 +103,10 @@ export class ManageSidebarComponent implements OnInit{
     if(this.sidebarForm.invalid) return;
 
     let param = {
-      name: this.sidebarForm.controls['name'].value
+      title: this.sidebarForm.controls['name'].value,
+      id: this.sidebarForm.controls['id'].value,
     }
-    this.httpService.httpPost("",param).subscribe((res: any) => {
+    this.httpService.httpPost(ApiUrls.banner.saveUpdateSideBar,param).subscribe((res: any) => {
       if(res['success']){
         this.modalBtn.nativeElement.click();
         this.getAllSideBar();

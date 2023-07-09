@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiUrls } from 'src/app/constants/apiRoutes';
 import { GridActionType, GridColumnDataType, GridColumnType, Pagination } from 'src/app/constants/constant';
 import { HttpService } from 'src/app/service/http.service';
 import { ModalDialogService } from 'src/app/service/modal-dialog.service';
@@ -30,17 +31,19 @@ export class ManageSubSidebarComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.getAllSubSideBar();
+    this.setColums();
   }
 
   initForm(){
     this.sidebarForm = this.fb.group({
-      name: ['',[Validators.required]]
+      name: ['',[Validators.required]],
+      id: ['']
     });
   }
 
   setColums() {
     this.columns = [
-      { title: 'Name', dataField: 'name', type: GridColumnType.DATA, dataType: GridColumnDataType.TEXT },
+      { title: 'Name', dataField: 'title', type: GridColumnType.DATA, dataType: GridColumnDataType.TEXT },
       {
         title: 'Action', dataField: '', type: GridColumnType.ACTION, actions: [
           { title: "edit", event: "edit", type: GridActionType.ICON, class: "fa fa-pencil" },
@@ -51,7 +54,7 @@ export class ManageSubSidebarComponent implements OnInit {
   }
 
   getAllSubSideBar(){
-    this.httpService.httpGet("",null).subscribe((res: any) => {
+    this.httpService.httpGet(ApiUrls.banner.getAllSubSidebar,null).subscribe((res: any) => {
       if(res['success']){
         this.data = res['data'];
         this.totalCount = res['count'];
@@ -78,7 +81,7 @@ export class ManageSubSidebarComponent implements OnInit {
       })
       dialogRef.subscribe(res => {
         if (res == "YES") {
-          this.httpService.httpGet("", { id: evt.data._id }).subscribe((res: any) => {
+          this.httpService.httpGet(ApiUrls.banner.deleteSubSidebar, { id: evt.data._id }).subscribe((res: any) => {
             if (res['success']) {
               this.getAllSubSideBar();
             }
@@ -89,7 +92,8 @@ export class ManageSubSidebarComponent implements OnInit {
     if (evt.event == 'edit') {
       this.modalBtn.nativeElement.click();
       this.sidebarForm.patchValue({
-        name: evt.data.name,
+        name: evt.data.title,
+        id: evt.data._id
       });
     }
   }
@@ -99,9 +103,10 @@ export class ManageSubSidebarComponent implements OnInit {
     if(this.sidebarForm.invalid) return;
 
     let param = {
-      name: this.sidebarForm.controls['name'].value
+      title: this.sidebarForm.controls['name'].value,
+      id: this.sidebarForm.controls['id'].value,
     }
-    this.httpService.httpPost("",param).subscribe((res: any) => {
+    this.httpService.httpPost(ApiUrls.banner.saveUpdateSubSideBar,param).subscribe((res: any) => {
       if(res['success']){
         this.modalBtn.nativeElement.click();
         this.getAllSubSideBar();

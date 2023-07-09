@@ -30,7 +30,16 @@ class pages{
 
 }
 class banner {
-    public static savebanner = "banner/saveBanner"
+    public static savebanner = "banner/saveBanner";
+    public static getBanner = "banner/getBanner";
+
+    public static getAllSidebar = "banner/getAllSidebar";
+    public static saveUpdateSideBar = "banner/saveUpdateSideBar";
+    public static deleteSidebar = "banner/deleteSidebar";
+
+    public static getAllSubSidebar = "banner/getAllSubSidebar";
+    public static saveUpdateSubSideBar = "banner/saveUpdateSubSideBar";
+    public static deleteSubSidebar = "banner/deleteSubSidebar";
 }
 
 export class ApiUrls{

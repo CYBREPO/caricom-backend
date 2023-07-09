@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiUrls } from 'src/app/constants/apiRoutes';
 import { HttpService } from 'src/app/service/http.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home-banner',
@@ -17,6 +18,7 @@ export class HomeBannerComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.getHomeDetails();
   }
 
   initForm() {
@@ -34,6 +36,36 @@ export class HomeBannerComponent implements OnInit {
   }
 
   get sidebarArray() { return (this.homeForm.controls['siderBanner'] as FormArray).controls }
+
+  getHomeDetails() {
+    this.httpService.httpGet(ApiUrls.banner.getBanner, null).subscribe((res: any) => {
+      if (res['success']) {
+        let arry = (this.homeForm.controls['siderBanner'] as FormArray);
+        arry.clear();
+        // let {bannerSlider} = res['data']['bannerSlider'];
+        if (res['data']['bannerSlider']) {
+          res['data']['bannerSlider'].forEach((banner: any) => {
+            arry.push(this.fb.group({
+              bannerContent: banner.content,
+              bannerImagePath: environment.url + banner.image,
+            }));
+          });
+        }
+
+
+        arry.push(this.fb.group({
+          bannerContent: "",
+          bannerImagePath: "",
+          bannerImage: ''
+        }));
+
+        this.homeForm.patchValue({
+          mainImagePath: environment.url + res['data']['bannerTwoSectionImage'],
+          mainContent: res['data']['bannerTwoSectionContent']
+        })
+      }
+    })
+  }
 
   handleFileInput(event: any, type: string, index: number = -1): void {
     if (type == "mainImage") {
@@ -67,16 +99,16 @@ export class HomeBannerComponent implements OnInit {
     if (this.homeForm.invalid) { return; }
 
     let formData = new FormData();
-    
-    
+
+
     formData.append(`bannerTwoSectionImage`, this.homeForm.controls['mainImage'].value);
     formData.append(`bannerTwoSectionContent`, this.homeForm.controls['mainContent'].value);
 
     if (this.sidebarArray) {
       for (let i = 0; i < this.sidebarArray.length; i++) {
         const fb = (this.sidebarArray[i] as FormGroup).controls;
-        formData.append(`bannerSlider[${i}][content]`, fb['bannerImage'].value);
-        formData.append(`bannerSlider[${i}][image]`, fb['bannerContent'].value);
+        formData.append(`bannerSlider[${i}][image]`, fb['bannerImage'].value);
+        formData.append(`bannerSlider[${i}][content]`, fb['bannerContent'].value);
       }
     }
 
