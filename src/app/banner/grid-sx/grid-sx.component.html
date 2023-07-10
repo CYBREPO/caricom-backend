@@ -4,7 +4,7 @@
         <div class="border-grey border border-1 p-3">
             <div class="d-flex align-items-end mb-3">
 
-                <button type="button" class="btn btn-primary" (click)="sidebarForm.reset()" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary" (click)="gridForm.reset()" data-bs-toggle="modal"
                     data-bs-target="#modalId">Add
                 </button>
                 <button type="button" class="btn btn-primary" hidden #modalBtn data-bs-toggle="modal"
@@ -21,10 +21,10 @@
             <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
                 role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" role="document">
-                    <form [formGroup]="sidebarForm" (ngSubmit)="submit()" class="w-100">
+                    <form [formGroup]="gridForm" (ngSubmit)="submit()" class="w-100">
                         <div class="modal-content p-5">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalTitleId">Add Sidebar</h5>
+                                <h5 class="modal-title" id="modalTitleId">Add Grid</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -33,10 +33,24 @@
                                     <div class="row">
                                         <div class="col mt-3 px-1">
                                             <div class="form-field ">
-                                                <label for="" class="d-block">Sidebar Name</label>
-                                                <input formControlName="name" type="text" class="d-block">
+                                                <img [src]="gridForm?.get('gridImage')?.value" alt="" height="90px"
+                                                width="160px">
+                                            </div>
+                                        </div>
+                                        <div class="col mt-3 px-1">
+                                            <div class="form-field ">
+                                                <label for="" class="d-block">Grid Image</label>
+                                                <input type="file" (change)="handleFileInput($event)" name="Car Image"
+                                                id="file">
+                                            </div>
+                                        </div>
+                                        <div class="col mt-3 px-1">
+                                            <div class="form-field ">
+                                                <label for="" class="d-block">Grid Content</label>
+                                                <input formControlName="gridContent" type="text" class="d-block">
                                                 <span class="text-danger d-block mt-2"
-                                                    *ngIf="submitted && sidebarForm.get('name')?.errors?.['required']">Sidebar Name is required</span>
+                                                    *ngIf="submitted && gridForm.get('gridContent')?.errors?.['required']">Grid
+                                                    Name is required</span>
                                             </div>
                                         </div>
                                     </div>

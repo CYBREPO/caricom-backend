@@ -7,12 +7,15 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from '../page-layout/home/home.component';
+import { GridSxComponent } from './grid-sx/grid-sx.component';
 
 const routes = [
   {path: '', component: HomeComponent, children: [
     {path: 'home-banner', component: HomeBannerComponent},
     {path: 'sidebar', component: ManageSidebarComponent},
     {path: 'sub-sidebar', component: ManageSubSidebarComponent},
+    {path: 'grid-six', component: GridSxComponent},
+
   ]}
  
 ]
@@ -21,7 +24,8 @@ const routes = [
   declarations: [
     ManageSidebarComponent,
     ManageSubSidebarComponent,
-    HomeBannerComponent
+    HomeBannerComponent,
+    GridSxComponent
   ],
   imports: [
     CommonModule,RouterModule.forChild(routes),MaterialModule,SharedModule

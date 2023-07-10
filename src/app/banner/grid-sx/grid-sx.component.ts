@@ -1,18 +1,21 @@
+
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiUrls } from 'src/app/constants/apiRoutes';
 import { GridActionType, GridColumnDataType, GridColumnType, Pagination } from 'src/app/constants/constant';
 import { HttpService } from 'src/app/service/http.service';
 import { ModalDialogService } from 'src/app/service/modal-dialog.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
-  selector: 'app-manage-sub-sidebar',
-  templateUrl: './manage-sub-sidebar.component.html',
-  styleUrls: ['./manage-sub-sidebar.component.scss']
+  selector: 'app-grid-sx',
+  templateUrl: './grid-sx.component.html',
+  styleUrls: ['./grid-sx.component.scss']
 })
-export class ManageSubSidebarComponent implements OnInit {
+export class GridSxComponent {
 
-  sidebarForm: FormGroup;
+  gridForm: FormGroup;
 
   columns: Array<{
     title: string, dataField: string, type: string, dataType?: string, rowChild?: { component: any, show: boolean }, sort?: boolean,
@@ -30,20 +33,23 @@ export class ManageSubSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.getAllSubSideBar();
+    this.getAllGrids();
     this.setColums();
   }
 
   initForm() {
-    this.sidebarForm = this.fb.group({
-      name: ['', [Validators.required]],
+    this.gridForm = this.fb.group({
+      gridImage: ['', []],
+      gridContent: ['', []],
+      gridFile: ['', []],
       id: ['']
     });
   }
 
   setColums() {
     this.columns = [
-      { title: 'Name', dataField: 'title', type: GridColumnType.DATA, dataType: GridColumnDataType.TEXT },
+      { title: 'Image', dataField: 'gridSixImage', type: GridColumnType.DATA, dataType: GridColumnDataType.TEXT },
+      { title: 'Content', dataField: 'gridSixContent', type: GridColumnType.DATA, dataType: GridColumnDataType.TEXT },
       {
         title: 'Action', dataField: '', type: GridColumnType.ACTION, actions: [
           { title: "edit", event: "edit", type: GridActionType.ICON, class: "fa fa-pencil" },
@@ -53,10 +59,16 @@ export class ManageSubSidebarComponent implements OnInit {
     ]
   }
 
-  getAllSubSideBar() {
-    this.httpService.httpGet(ApiUrls.banner.getAllSubSidebar, null).subscribe((res: any) => {
+  getAllGrids() {
+    this.httpService.httpGet(ApiUrls.grid.getGridSix, null).subscribe((res: any) => {
       if (res['success']) {
         this.data = res['data'];
+        if (this.data) {
+          this.data.map((m: any) => {
+            m.gridSixImage = environment.url + m.gridSixImage;
+            return m
+          })
+        }
         this.totalCount = res['count'];
       }
     })
@@ -66,7 +78,7 @@ export class ManageSubSidebarComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
 
-    this.getAllSubSideBar();
+    this.getAllGrids();
   }
 
   gridEvent(evt: any) {
@@ -81,9 +93,9 @@ export class ManageSubSidebarComponent implements OnInit {
       })
       dialogRef.subscribe(res => {
         if (res == "YES") {
-          this.httpService.httpGet(ApiUrls.banner.deleteSubSidebar, { id: evt.data._id }).subscribe((res: any) => {
+          this.httpService.httpGet(ApiUrls.grid.deleteGridSix, { id: evt.data._id }).subscribe((res: any) => {
             if (res['success']) {
-              this.getAllSubSideBar();
+              this.getAllGrids();
             }
           });
         }
@@ -91,8 +103,9 @@ export class ManageSubSidebarComponent implements OnInit {
     }
     if (evt.event == 'edit') {
       this.modalBtn.nativeElement.click();
-      this.sidebarForm.patchValue({
-        name: evt.data.title,
+      this.gridForm.patchValue({
+        gridImage: evt.data.gridSixImage,
+        gridContent: evt.data.gridSixContent,
         id: evt.data._id
       });
     }
@@ -100,17 +113,23 @@ export class ManageSubSidebarComponent implements OnInit {
 
   submit() {
     this.submitted = true;
-    if (this.sidebarForm.invalid) return;
+    if (this.gridForm.invalid) return;
 
     let param = {
-      title: this.sidebarForm.controls['name'].value,
-      id: this.sidebarForm.controls['id'].value,
+      gridSixImage: this.gridForm.controls['gridImage'].value,
+      gridSixContent: this.gridForm.controls['gridContent'].value,
+      id: this.gridForm.controls['id'].value,
     }
-    this.httpService.httpPost(ApiUrls.banner.saveUpdateSubSideBar, param).subscribe((res: any) => {
+    this.httpService.httpPost(ApiUrls.grid.saveUpdateGridSix, param).subscribe((res: any) => {
       if (res['success']) {
         this.modalBtn.nativeElement.click();
-        this.getAllSubSideBar();
+        this.getAllGrids();
       }
     })
+  }
+  handleFileInput(event: any): void {
+    this.gridForm.controls["gridFile"].setValue(event?.target?.files[0]);
+    this.gridForm.controls["gridImage"].setValue(window.URL.createObjectURL(event?.target?.files[0]));
+    return;
   }
 }
