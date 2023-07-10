@@ -111,6 +111,12 @@ export class GridSxComponent {
     }
   }
 
+  handleFileInput(event: any): void {
+    this.gridForm.controls["gridFile"].setValue(event?.target?.files[0]);
+    this.gridForm.controls["gridImage"].setValue(window.URL.createObjectURL(event?.target?.files[0]));
+    return;
+  }
+
   submit() {
     this.submitted = true;
     if (this.gridForm.invalid) return;
@@ -119,7 +125,7 @@ export class GridSxComponent {
 
     formData.append(`gridSixImage`,this.gridForm.controls['gridFile'].value);
     formData.append(`gridSixContent`,this.gridForm.controls['gridContent'].value);
-    formData.append(`id`,this.gridForm.controls['id'].value);
+    formData.append(`id`,this.gridForm.controls['id'].value??"");
    
     this.httpService.httpPostFormData(ApiUrls.grid.saveUpdateGridSix, formData).subscribe((res: any) => {
       if (res['success']) {
@@ -128,9 +134,5 @@ export class GridSxComponent {
       }
     })
   }
-  handleFileInput(event: any): void {
-    this.gridForm.controls["gridFile"].setValue(event?.target?.files[0]);
-    this.gridForm.controls["gridImage"].setValue(window.URL.createObjectURL(event?.target?.files[0]));
-    return;
-  }
+  
 }

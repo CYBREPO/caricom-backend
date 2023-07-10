@@ -14,9 +14,9 @@
                                 <ng-container *ngFor="let array of sidebarArray; let i = index; let last = last;">
                                     <tr [formGroupName]="i">
                                         <td>
-                                            <div *ngIf="sidebarArray[i]?.get('bannerImagePath')?.value != ''">
+                                            <div *ngIf="sidebarArray[i].get('bannerImagePath')?.value != ''">
                                                 <div class="wp-content">
-                                                    <img [src]="sidebarArray[i]?.get('bannerImagePath')?.value" alt=""
+                                                    <img [src]="sidebarArray[i].get('bannerImagePath')?.value" alt=""
                                                         height="90px" width="160px">
                                                 </div>
                                             </div>
@@ -78,9 +78,9 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <td class="wp-content" *ngIf="homeForm?.get('mainImagePath')?.value != ''">
+                            <td class="wp-content" *ngIf="homeForm.get('mainImagePath')?.value != ''">
                                 <div class="">
-                                    <img [src]="homeForm?.get('mainImagePath')?.value" alt="" height="90px"
+                                    <img [src]="homeForm.get('mainImagePath')?.value" alt="" height="90px"
                                         width="160px">
                                 </div>
                             </td>
