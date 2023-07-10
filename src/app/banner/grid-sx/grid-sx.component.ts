@@ -26,6 +26,7 @@ export class GridSxComponent {
   pageSize = Pagination.PageSize;
   submitted: boolean = false;
   @ViewChild('modalBtn') modalBtn: ElementRef;
+  @ViewChild('inputFile') inputFile: ElementRef;
   data: Array<any> = [];
 
   constructor(private fb: FormBuilder, private httpService: HttpService,
@@ -123,10 +124,10 @@ export class GridSxComponent {
 
     let formData = new FormData();
 
-    formData.append(`gridSixImage`,this.gridForm.controls['gridFile'].value);
-    formData.append(`gridSixContent`,this.gridForm.controls['gridContent'].value);
-    formData.append(`id`,this.gridForm.controls['id'].value??"");
-   
+    formData.append(`gridSixImage`, this.gridForm.controls['gridFile'].value);
+    formData.append(`gridSixContent`, this.gridForm.controls['gridContent'].value);
+    formData.append(`id`, this.gridForm.controls['id'].value ?? "");
+
     this.httpService.httpPostFormData(ApiUrls.grid.saveUpdateGridSix, formData).subscribe((res: any) => {
       if (res['success']) {
         this.modalBtn.nativeElement.click();
@@ -134,5 +135,9 @@ export class GridSxComponent {
       }
     })
   }
-  
+
+  resetFile() {
+    this.inputFile.nativeElement.value = "";
+  }
+
 }

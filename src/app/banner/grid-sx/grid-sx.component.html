@@ -4,7 +4,7 @@
         <div class="border-grey border border-1 p-3">
             <div class="d-flex align-items-end mb-3">
 
-                <button type="button" class="btn btn-primary" (click)="gridForm.reset()" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary" (click)="gridForm.reset();resetFile()" data-bs-toggle="modal"
                     data-bs-target="#modalId">Add
                 </button>
                 <button type="button" class="btn btn-primary" hidden #modalBtn data-bs-toggle="modal"
@@ -40,7 +40,7 @@
                                         <div class="col mt-3 px-1">
                                             <div class="form-field ">
                                                 <label for="" class="d-block">Grid Image</label>
-                                                <input type="file" (change)="handleFileInput($event)" name="Car Image"
+                                                <input #inputFile type="file" (change)="handleFileInput($event)" name="Car Image"
                                                 id="file">
                                             </div>
                                         </div>
