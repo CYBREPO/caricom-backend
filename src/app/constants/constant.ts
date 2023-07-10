@@ -22,6 +22,7 @@ export class GridColumnDataType {
    public static DATE = "DATE";
    public static DATETIME = "DATETIME";
    public static TIME = "TIME";
+   public static IMAGE = "IMAGE";
 }
 
 export class GridActionType {

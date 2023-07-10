@@ -48,7 +48,7 @@ export class GridSxComponent {
 
   setColums() {
     this.columns = [
-      { title: 'Image', dataField: 'gridSixImage', type: GridColumnType.DATA, dataType: GridColumnDataType.TEXT },
+      { title: 'Image', dataField: 'gridSixImage', type: GridColumnType.DATA, dataType: GridColumnDataType.IMAGE },
       { title: 'Content', dataField: 'gridSixContent', type: GridColumnType.DATA, dataType: GridColumnDataType.TEXT },
       {
         title: 'Action', dataField: '', type: GridColumnType.ACTION, actions: [
@@ -115,12 +115,13 @@ export class GridSxComponent {
     this.submitted = true;
     if (this.gridForm.invalid) return;
 
-    let param = {
-      gridSixImage: this.gridForm.controls['gridImage'].value,
-      gridSixContent: this.gridForm.controls['gridContent'].value,
-      id: this.gridForm.controls['id'].value,
-    }
-    this.httpService.httpPost(ApiUrls.grid.saveUpdateGridSix, param).subscribe((res: any) => {
+    let formData = new FormData();
+
+    formData.append(`gridSixImage`,this.gridForm.controls['gridFile'].value);
+    formData.append(`gridSixContent`,this.gridForm.controls['gridContent'].value);
+    formData.append(`id`,this.gridForm.controls['id'].value);
+   
+    this.httpService.httpPostFormData(ApiUrls.grid.saveUpdateGridSix, formData).subscribe((res: any) => {
       if (res['success']) {
         this.modalBtn.nativeElement.click();
         this.getAllGrids();

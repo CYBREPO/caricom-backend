@@ -26,6 +26,10 @@
                             title="{{item[col.dataField]}}">
                             {{item[col.dataField]}}
                         </span>
+                        <span *ngIf="col.dataType == GridColumnDataType.IMAGE"
+                            title="{{item[col.dataField]}}">
+                            <img [src]="item[col.dataField]" alt="" height="22px">
+                        </span>
                     </ng-container>
                     <ng-container *ngIf="col.type == GridColumnType.EDITOR">
                         <ckeditor [editor]="Editor" [data]="item[col.dataField]" [disabled]="true"></ckeditor>
