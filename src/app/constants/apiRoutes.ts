@@ -24,9 +24,14 @@ class banner {
 }
 class grid {
 
-    public static getGridSix = "grid/getGridSix"
-    public static saveUpdateGridSix = "grid/saveUpdateGridSix"
-    public static deleteGridSix = "grid/deleteGridSix"
+    public static getGridSix = "grid/getGridSix";
+    public static saveUpdateGridSix = "grid/saveUpdateGridSix";
+    public static deleteGridSix = "grid/deleteGridSix";
+
+    //countries
+    public static getAllCountries = "grid/getAllCountries";
+    public static createUpdateCountries = "grid/createUpdateCountries";
+    public static deleteCountries = "grid/deleteCountries";
 }
 
 export class ApiUrls {

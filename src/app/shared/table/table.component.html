@@ -20,7 +20,7 @@
                     <ng-container *ngIf="col.type == GridColumnType.DATA">
                         <span
                             *ngIf="col.dataType == GridColumnDataType.DATE || col.dataType == GridColumnDataType.DATETIME;">
-                            {{item[col.dataField] | date : 'yyyy-MM-dd HH:mm' }}
+                            {{item[col.dataField] | date : 'dd MMM yyyy' }}
                         </span>
                         <span *ngIf="col.dataType == undefined || col.dataType == GridColumnDataType.TEXT"
                             title="{{item[col.dataField]}}">
