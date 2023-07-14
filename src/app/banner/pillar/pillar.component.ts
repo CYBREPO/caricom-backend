@@ -26,19 +26,31 @@ export class PillarComponent {
     let rex = /<img[^>]+src="?([^"\s]+)"?\s*\/>/g;
     let m;
     // files
-    while ( m = rex.exec( this.mycontent ) ) {
-        // urls.push( m[1] );
+    while (m = rex.exec(this.mycontent)) {
+      // urls.push( m[1] );
     }
-    // var arr = dataurl.split(','),
-    //   mime = arr[0].match(/:(.*?);/)[1],
-    //   bstr = atob(arr[arr.length - 1]),
-    //   n = bstr.length,
-    //   u8arr = new Uint8Array(n);
-    // while (n--) {
-    //   u8arr[n] = bstr.charCodeAt(n);
-    // }
-    // return new File([u8arr], filename, { type: mime });
+
   }
+
+  // convertBaseToFile(dataurl: string) {
+  //   let extIndex = file.name.lastIndexOf('.');
+  //   let ext = file.name.substr(extIndex);
+  //   let fileName = file.name.substr(0, extIndex);
+
+  //   filename = fileName + Date.now() + ext;
+
+  //   var arr = dataurl.split(','),
+  //     mime = arr[0].match(/:(.*?);/) ? [1],
+  //     bstr = atob(arr[arr.length - 1]),
+  //     n = bstr.length,
+  //     u8arr = new Uint8Array(n);
+  //   while (n--) {
+  //     u8arr[n] = bstr.charCodeAt(n);
+  //   }
+  //   return new File([u8arr], filename, { type: mime });
+  //   debugger
+
+  // }
 
 }
 

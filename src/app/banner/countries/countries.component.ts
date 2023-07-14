@@ -109,8 +109,8 @@ export class CountriesComponent implements OnInit {
         countryFlag: evt.data.countryFlag,
         countryName: evt.data.countryName,
         date: evt.data.date,
-        isAssociateMembers: evt.data.isAssociateMembers,
-        id: evt.data._id
+        isAssociateMembers: evt.data.isAssociateMembers??false,
+        id: evt.data._id??""
       });
     }
   }
@@ -130,7 +130,7 @@ export class CountriesComponent implements OnInit {
     formData.append(`countryFlag`, this.countryForm.controls['countryFile'].value);
     formData.append(`countryName`, this.countryForm.controls['countryName'].value);
     formData.append(`date`, this.countryForm.controls['date'].value);
-    formData.append(`isAssociateMembers`, this.countryForm.controls['isAssociateMembers'].value);
+    formData.append(`isAssociateMembers`, this.countryForm.controls['isAssociateMembers'].value??false);
     formData.append(`id`, this.countryForm.controls['id'].value ?? "");
 
     this.httpService.httpPostFormData(ApiUrls.grid.createUpdateCountries, formData).subscribe((res: any) => {

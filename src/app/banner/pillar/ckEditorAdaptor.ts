@@ -16,12 +16,7 @@ export default class Adapter {
 
     read(file: any) {
         return new Promise((resolve, reject) => {
-            debugger
-            let extIndex = file.name.lastIndexOf('.');
-            let ext = file.name.substr(extIndex);
-            let fileName = file.name.substr(0,extIndex);
             
-            file.name = fileName + Date.now() + ext;
             const reader = new FileReader();
 
             reader.onload = function () {
