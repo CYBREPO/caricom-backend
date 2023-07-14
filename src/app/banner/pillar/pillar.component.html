@@ -1,0 +1,9 @@
+<div class="p-3">
+    <div class="container">
+        <h5 class="mb-4">Piller</h5>
+
+        <ckeditor [editor]="Editor" [(ngModel)]="mycontent" (ready)="onReady($event)" #piller></ckeditor>
+
+        <button type="button" class=" d-block btn btn-success" style="margin-right: 10px;" (click)="submit()">Submit</button>
+    </div>
+</div>

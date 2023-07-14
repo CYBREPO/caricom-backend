@@ -1,0 +1,12 @@
+.floatingform {
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+    padding: 45px;
+    border: thin solid rgba(128, 128, 128, 0.4901960784);
+    box-shadow: 0 10px 40px rgba(128, 128, 128, 0.3882352941);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

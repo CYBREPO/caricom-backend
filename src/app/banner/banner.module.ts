@@ -9,6 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from '../page-layout/home/home.component';
 import { GridSxComponent } from './grid-sx/grid-sx.component';
 import { CountriesComponent } from './countries/countries.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { PillarComponent } from './pillar/pillar.component';
 
 const routes = [
   {path: '', component: HomeComponent, children: [
@@ -17,6 +19,7 @@ const routes = [
     {path: 'sub-sidebar', component: ManageSubSidebarComponent},
     {path: 'grid-six', component: GridSxComponent},
     {path: 'countries', component: CountriesComponent},
+    {path: 'pillars', component: PillarComponent},
 
   ]}
  
@@ -28,10 +31,11 @@ const routes = [
     ManageSubSidebarComponent,
     HomeBannerComponent,
     GridSxComponent,
-    CountriesComponent
+    CountriesComponent,
+    PillarComponent
   ],
   imports: [
-    CommonModule,RouterModule.forChild(routes),MaterialModule,SharedModule
+    CommonModule,RouterModule.forChild(routes),MaterialModule,SharedModule,CKEditorModule
   ]
 })
 export class BannerModule { }
